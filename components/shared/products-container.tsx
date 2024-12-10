@@ -7,6 +7,6 @@ interface Props {
 
 export const ProductsContainer: React.FC<React.PropsWithChildren<Props>> = ({ className, children }) => {
   return (
-    <div className={cn('mt-10', className)}>{children}</div>
+    <div className={cn('mt-10 flex flex-wrap', className)}>{children}</div>
   );
 };
