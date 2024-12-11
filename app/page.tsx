@@ -4,7 +4,6 @@ import { ProductsContainer } from "@/components/shared/products-container";
 import { TopBar } from "@/components/shared/top-bar";
 import React from "react";
 import { prisma } from "@/prisma/prisma-client";
-import { Drawer } from "@/components/shared/drawer";
 
 export default async function Home() {
   const products = await prisma.product.findMany({});

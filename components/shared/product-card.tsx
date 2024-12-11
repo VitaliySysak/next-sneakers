@@ -14,15 +14,14 @@ interface Props {
 
 export const ProductCard: React.FC<Props> = ({ name, imageUrl, price, className }) => {
   return (
-    <div
-      className={cn(style.card, className)}>
-      <Image width={288} height={180} src={imageUrl} alt="good" />
+    <div className={cn(style.card, className)}>
+      <Image width={290} height={240} src={imageUrl} alt="good" />
       <LikeButton className="cursor-pointer"/>
-      <h3 className="pb-4 text-xl">{name}</h3>
-      <div className="flex justify-between ">
+      <h3 className="pt-4 pb-4 text-2xl">{name}</h3>
+      <div className="flex justify-between items-center">
         <div>
-          <h4 className="text-[var(--grey-text)]">PRICE:</h4>
-          <span className="font-bold">${price}</span>
+          <h4 className="text-lg text-[var(--grey-text)]">PRICE:</h4>
+          <span className="text-2xl font-bold">${price}</span>
         </div>
         <AddButton className="cursor-pointer" />
       </div>
