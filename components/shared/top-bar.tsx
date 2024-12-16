@@ -8,7 +8,7 @@ interface Props {
 
 export const TopBar: React.FC<Props> = ({ className }) => {
   return (
-    <div className={cn('flex justify-between', className)}>
+    <div className={cn('flex justify-between mb-6', className)}>
       <h1 className='text-4xl font-bold'>All sneakers</h1>
       <SearchInput />
     </div>

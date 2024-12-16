@@ -1,6 +1,16 @@
 import { prisma } from "./prisma-client";
 
 async function up() {
+  await prisma.user.create({
+    data: {
+      email: "test@gmail.com",
+      name: "test",
+      cart: {
+        create: {}
+      }
+    }
+  })
+
   await prisma.product.createMany({
     data: [
       {
@@ -65,9 +75,21 @@ async function up() {
       },
     ],
   });
+
+  await prisma.user.update({
+    where: { id: 1 },
+    data: {
+      likes: {
+        connect: { id: 2 }
+      }
+    }
+  });
 }
 
 async function down() {
+  await prisma.$executeRaw`TRUNCATE TABLE "User" RESTART IDENTITY CASCADE`;
+  await prisma.$executeRaw`TRUNCATE TABLE "Cart" RESTART IDENTITY CASCADE`;
+  await prisma.$executeRaw`TRUNCATE TABLE "CartItem" RESTART IDENTITY CASCADE`;
   await prisma.$executeRaw`TRUNCATE TABLE "Product" RESTART IDENTITY CASCADE`;
 }
 

@@ -8,11 +8,38 @@ datasource db {
     directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
+
+model User {
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
+  name     String
+  cart     Cart?     @relation(fields: [cartId], references: [id])
+  cartId   Int?      @unique
+  likes    Product[] @relation("UserLikesProduct")
+}
+
 model Product {
-    id Int @id @default(autoincrement())
-    name String @unique
-    imageUrl String
-    price Int
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id         Int       @id @default(autoincrement())
+  name       String    @unique
+  imageUrl   String
+  price      Float
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  cartItems  CartItem[]
+  likedBy    User[]    @relation("UserLikesProduct")
+}
+
+model Cart {
+  id       Int       @id @default(autoincrement())
+  user     User?     @relation
+  items    CartItem[]
+}
+
+model CartItem {
+  id        Int      @id @default(autoincrement())
+  quantity  Int
+  cart      Cart     @relation(fields: [cartId], references: [id])
+  cartId    Int 
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
 }

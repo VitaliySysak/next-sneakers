@@ -12,7 +12,7 @@ import { DrawerCart } from "./drawer-cart";
 export const Header: React.FC = () => {
   const [openDrawer, setOpenDrawer] = React.useState(false);
   return (
-    <header className="flex justify-between items-center p-10 bg-white rounded-t-[20px] border-b-2 shadow-[0px_10px_20px_rgba(0,0,0,0.04)]">
+    <header className="p-10 flex justify-between items-center bg-white rounded-t-[20px] border-b-2 shadow-[0px_10px_20px_rgba(0,0,0,0.04)]">
       <Link href={"/"} className="flex justify-between items-center w-[240px]">
         <Image src={logo} alt="logo" className="w-12 h-12" />
         <div>
@@ -20,7 +20,7 @@ export const Header: React.FC = () => {
           <p className="text-base text-[var(--grey-text)]">The best sneakers shop</p>
         </div>
       </Link>
-      <ul className="flex w-[25%] justify-between tracking-[1px]">
+      <ul className="w-[25%] 2xl:w-[30%] xl:w-[35%] lg:w-[42%] md:w-[50%] sm:w-[50%] flex justify-between tracking-[1px]">
         <li onClick={() => setOpenDrawer(!openDrawer)} className="flex items-center cursor-pointer">
           <Image src={cart} alt="cart" className="w-7 h-7" />
           <span className="pl-3 font-semibold text-xl text-[var(--dark-grey-text)]">$120</span>

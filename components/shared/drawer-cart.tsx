@@ -1,10 +1,12 @@
+'use client'
+
 import { cn } from "@/lib/utils";
 import React from "react";
-import { CartItem } from "./cart-item";
 import { OrderButton } from "../ui/order-button";
 import { CartPrice } from "../ui/cart-price";
 import Image from "next/image";
 import remove from "@/public/remove.svg";
+import { CartItems } from "./cart-items";
 
 interface Props {
   onClose: () => void;
@@ -12,6 +14,8 @@ interface Props {
 }
 
 export const DrawerCart: React.FC<Props> = ({ onClose, className }) => {
+  const [totalPrice, setTotalPrice] = React.useState<number>(0)
+
   return (
     <div className="fixed left-0 top-0 bg-[rgba(0,0,0,0.4)] w-full h-full z-30">
       <div
@@ -27,22 +31,11 @@ export const DrawerCart: React.FC<Props> = ({ onClose, className }) => {
         </div>
 
         {/* cart items */}
-        <div className="h-full overflow-y-auto">
-          <CartItem />
-          <CartItem />
-          <CartItem />
-          <CartItem />
-          <CartItem />
-          <CartItem />
-          <CartItem />
-          <CartItem />
-          <CartItem />
-          <CartItem />
-        </div>
-
+        <CartItems setTotalPrice={setTotalPrice} />
+    
         {/* cart footer */}
         <div className="mt-4">
-          <CartPrice />
+          <CartPrice totalPrice={totalPrice}/>
           <OrderButton />
         </div>
       </div>

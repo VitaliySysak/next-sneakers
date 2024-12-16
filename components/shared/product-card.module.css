@@ -1,14 +1,12 @@
 .card {
-    width: 380px;
-    border-radius: 50px; 
-    border: 1px solid var(--object-border); 
-    padding: 2rem; 
-    position: relative;
-    transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
-  }
-  
-  .card:hover {
-    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.07);
-    transform: translateY(-5px);
-  }
-  
+  position: relative;
+  border-radius: 50px;
+  border: 1px solid var(--object-border);
+  padding: 2rem;
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.07);
+  transform: translateY(-5px);
+}
