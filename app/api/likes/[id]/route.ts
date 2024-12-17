@@ -1,8 +1,8 @@
 import { prisma } from "@/prisma/prisma-client";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = await params;
+export async function PATCH(req: NextRequest, context: { params: { id: string } }) {
+  const { id } = await context.params;
   const userId = 1;
 
   try {

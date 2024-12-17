@@ -1,8 +1,8 @@
 import { prisma } from "@/prisma/prisma-client";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = await params;
+export async function POST(req: NextRequest, context: { params: { id: string } }) {
+  const { id } = await context.params;
 
   const cartItem = await prisma.cartItem.create({
     data: {
