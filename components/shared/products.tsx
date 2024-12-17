@@ -4,7 +4,10 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { ProductCard } from "@/components/shared/product-card";
 import { Skeleton } from "../ui/skeleton";
+import axios from "axios";
+
 interface Props {
+  type: string;
   limit?: number;
   className?: string;
 }
@@ -20,22 +23,31 @@ interface AddedProducts {
   productId: number;
 }
 
-export const Products: React.FC<Props> = ({ className, limit = 12 }) => {
+interface LikedProducts {
+  id: number;
+  name: string;
+  imageUrl: string;
+  price: number;
+}
+
+export const Products: React.FC<Props> = ({ type, className, limit = 12 }) => {
   const [products, setProducts] = React.useState<Products[]>([]);
   const [addedProducts, setAddedProducts] = React.useState<AddedProducts[]>([]);
+  const [likedProducts, setLikedProducts] = React.useState<LikedProducts[]>([]);
+
   const [loading, setLoading] = React.useState(true);
   React.useEffect(() => {
     const fetchProductsAndCart = async () => {
       try {
-        const [productsResponse, cartResponse] = await Promise.all([
-          fetch("http://localhost:3000/api/products"),
-          fetch("http://localhost:3000/api/cart"),
+        const [productsResponse, cartResponse, likeResponse] = await Promise.all([
+          axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/products`),
+          axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/cart`),
+          axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/likes`),
         ]);
 
-        const [products, cart] = await Promise.all([productsResponse.json(), cartResponse.json()]);
-
-        setProducts(products);
-        setAddedProducts(cart);
+        setProducts(productsResponse.data);
+        setAddedProducts(cartResponse.data);
+        setLikedProducts(likeResponse.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -58,14 +70,41 @@ export const Products: React.FC<Props> = ({ className, limit = 12 }) => {
 
   return (
     products &&
+    likedProducts &&
     addedProducts && (
       <div className={cn("grid gap-8 grid-cols-4 place-items-center", className)}>
-        {products.map((product) => {
-          const isAdded = addedProducts.some((addedProduct) => product.id === addedProduct.productId);
-          return (
-            <ProductCard key={product.id} id={product.id} name={product.name} imageUrl={product.imageUrl} price={product.price} isAdded={isAdded} />
-          );
-        })}
+        {type === "all" &&
+          products.map((product) => {
+            const isAdded = addedProducts.some((addedProduct) => product.id === addedProduct.productId);
+            const isLiked = likedProducts.some((likedProduct) => product.id === likedProduct.id);
+            return (
+              <ProductCard
+                key={product.id}
+                id={product.id}
+                name={product.name}
+                imageUrl={product.imageUrl}
+                price={product.price}
+                isAdded={isAdded}
+                isLiked={isLiked}
+              />
+            );
+          })}
+        {type === "saved" &&
+          likedProducts.map((product) => {
+            const isAdded = addedProducts.some((addedProduct) => product.id === addedProduct.productId);
+            const isLiked = likedProducts.some((likedProduct) => product.id === likedProduct.id);
+            return (
+              <ProductCard
+                key={product.id}
+                id={product.id}
+                name={product.name}
+                imageUrl={product.imageUrl}
+                price={product.price}
+                isAdded={isAdded}
+                isLiked={isLiked}
+              />
+            );
+          })}
       </div>
     )
   );

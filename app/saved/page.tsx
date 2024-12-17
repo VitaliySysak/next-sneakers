@@ -3,12 +3,12 @@ import { Products } from "@/components/shared/products";
 import { TopBar } from "@/components/shared/top-bar";
 import React from "react";
 
-export default async function Home() {
+export default async function Saved() {
   return (
     <div className="bg-white">
       <Container>
-        <TopBar name='All sneakers' />
-        <Products type="all" />
+        <TopBar name='My saves' />
+        <Products type="saved" />
       </Container>
     </div>
   );

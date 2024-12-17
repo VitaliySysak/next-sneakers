@@ -26,9 +26,9 @@ export const AddButton: React.FC<Props> = ({ id, isAdded, className }) => {
     setLoading(true);
     try {
       if (addedToCart) {
-        await axios.delete("http://localhost:3000/api/cart", { data: { id } });
+        await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/api/cart/${id}`);
       } else {
-        await axios.post("http://localhost:3000/api/cart", { id });
+        await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/cart/${id}`);
       }
       setAddedToCart(!addedToCart);
     } catch (error) {

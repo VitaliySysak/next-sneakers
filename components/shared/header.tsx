@@ -25,16 +25,16 @@ export const Header: React.FC = () => {
           <Image src={cart} alt="cart" className="w-7 h-7" />
           <span className="pl-3 font-semibold text-xl text-[var(--dark-grey-text)]">$120</span>
         </li>
-        <li className="flex items-center cursor-pointer">
+        <Link href={"/saved"}  className="flex items-center cursor-pointer">
           <Image src={like} alt="like" className="w-7 h-7" />
           <h4 className="pl-3 text-xl">Saved</h4>
-        </li>
+        </Link>
         <li className="flex items-center cursor-pointer">
           <Image src={profile} alt="profile" className="w-7 h-7" />
           <h4 className="pl-3 text-xl">Profile</h4>
         </li>
       </ul>
-      {openDrawer && <DrawerCart onClose={()=> setOpenDrawer(!openDrawer)} />}
+      {openDrawer && <DrawerCart onClose={() => setOpenDrawer(!openDrawer)} />}
     </header>
   );
 };
